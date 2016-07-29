@@ -1,5 +1,7 @@
 import cv2
 import numpy as np
+import matplotlib.pyplot as plt
+from PatternMatch import pattern_match_coordinate
 
 
 def homography_align(sourceImg, destImg, pointDict, plot=False):
@@ -25,9 +27,9 @@ def homography_align(sourceImg, destImg, pointDict, plot=False):
     '''
     cornerList = ['LU', 'LD', 'RU', 'RD', 'LEFT', 'RIGHT', 'UP', 'DOWN']
     # Four corners of the source and destination image
-    ptsSource = np.array([surimg.pattern_match_coordinate(sourceImg, pointDict[corner], method='cv2.TM_CCOEFF_NORMED')\
+    ptsSource = np.array([pattern_match_coordinate(sourceImg, pointDict[corner], method='cv2.TM_CCOEFF_NORMED')\
                  for corner in cornerList])
-    ptsDest = np.array([surimg.pattern_match_coordinate(destImg, pointDict[corner], method='cv2.TM_CCOEFF_NORMED')\
+    ptsDest = np.array([pattern_match_coordinate(destImg, pointDict[corner], method='cv2.TM_CCOEFF_NORMED')\
                for corner in cornerList])
     
     # Calculate Homography
