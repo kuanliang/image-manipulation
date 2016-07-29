@@ -1,16 +1,34 @@
 import cv2
 import numpy as np
+import os
 
-
-def import_template(path):
-    '''
-    '''
-    
     
 def import_corner(path):
-    '''
+    '''import corner images to a dictionary
+    
+    Args:
+        path: path to the corner images
+    
+    Notes:
+        4 corners:
+            RU.img (Right Up)
+            RD.img (Right Down)
+            LU.img (Left Up)
+            LD.img (Left Down)
+    
+    Return: return a dictionary with key (RU, RD, LU, LD) and values are repective images
     '''
     
+    cornerDict = dict()
+    for cornerFile in os.listdir(path):
+        fileExt = os.path.splitext(cornerFile)
+        pathToImage = path + cornerFile
+        if fileExt[1] == '.png':
+            cornerDict[fileExt[0]] = cv2.imread(pathToImage)
+    return cornerDict
+    
+    
+        
     
     
 def import_template(templateNum):
