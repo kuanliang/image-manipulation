@@ -1,7 +1,30 @@
 import cv2
 import numpy as np
 import os
+import re
+from os import listdir
+from os.path import isfile, join
 
+
+def import_images(path):
+    '''import images 
+    
+    Args:
+        path: path to the images
+    
+    Notes:
+        the path contain many images
+    
+    Return:
+        a numpy array
+    '''
+    onlyFiles = [f for f in listdir(path) if isfile(join(path,f)) ]
+    images = np.empty(len(onlyFiles), dtype=object)
+    for n in range(0, len(onlyFiles)):
+        images[n] = cv2.imread(join(path, onlyFiles[n]))
+    
+    onlyFilesSN = [re.sub('_+.+', '', SN) for SN in onlyFiles]
+    return images, onlyFilesSN
     
 def import_corner(path):
     '''import corner images to a dictionary
